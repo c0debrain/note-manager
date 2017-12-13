@@ -1,0 +1,67 @@
+<head>
+  
+  <title>AdminPanel</title>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">Note Manger</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          {{#if currentUser}}
+            <li class="nav-item mx-2">
+              <button class="btn btn-outline-success" data-target="#addmodal" type="button" data-toggle="modal">Add Notes</button>  
+            </li>
+          {{/if}}
+          <li class="nav-item mr-5">
+            {{> loginButtons}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <h1 class="text-center my-5">Welcome {{currentUser.username}} !</h1>
+    {{#if currentUser}}
+      <ul class="list-group col-md-6 m-auto">
+        {{#each notes}}
+          {{> note}}
+        {{/each}}
+      </ul>
+      {{else}}
+      <p class="lead text-center">Please login to manage notes</p>
+    {{/if}}
+  </div>
+
+  {{> modal}}
+</body>
+
+
+<template name="note">
+  <li class="list-group-item"  id="delete-note">
+    <a href="#"><i class="fa fa-times pull-right" aria-hidden="true"></i></a>
+    {{text}}: <strong> Added by {{username}}</strong>
+  </li>
+</template>
+
+
+<template name="modal">
+  <div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Add notes to list</h3>
+        </div>
+        <form class="form-control addform">
+          <input class="form-control" type="text" name="text" placeholder="add notes...">
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
